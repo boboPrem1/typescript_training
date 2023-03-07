@@ -1,0 +1,55 @@
+// Typage de variables
+
+// Types de bases
+const a: string = "Hello World !";
+const n: number = 42;
+const b: boolean = true;
+const d: null = null;
+
+// Types complexes
+const arr: string[] = ["a", "b", "c"];
+const arr2: number[] = [1, 2, 3, 4];
+const arrMixed: any = [1, "a", 5, "Hello World !"];
+
+// Objets typés...
+const user: { firstname: string; lastname: string } = { firstname: "John", lastname: "Doe" };
+// Objet avec une propriété optionnelle
+const user2: { firstname: string; lastname?: string } = { firstname: "John" };
+// Objet avec une propriété obligatoire et les autres dynamiques
+const user3: { firstname: string;[key: string]: string } = { firstname: "John", lastname: "Doe", age: "42" };
+
+// Typescript est intelligent: les litterals sont typés
+const key = 'firstname';
+console.log(user3[key]);
+
+const date: Date = new Date();
+
+// Typage de functions
+
+const callBack: Function = (e: MouseEvent): void => {
+  console.log(e);
+};
+
+const callBack2: (e: MouseEvent) => void = (e: MouseEvent): void => {
+  console.log(e);
+};
+
+const callBack3: (e: MouseEvent) => void = (e: MouseEvent): number => {
+  return 3;
+};
+
+console.log(callBack3(new MouseEvent("click")));
+
+function printId(id: number): void {
+    console.log(id.toString());
+}
+
+// L'assertion de type, on indique a ts de quel type sera le retour dans le cas où il ne le saurait pas
+const compteur = document.querySelector("#compteur") as HTMLButtonElement;
+// On peut l'écrire aussi de cette manière ...
+const compteur2 = <HTMLButtonElement>document.querySelector("#compteur");
+
+// Le type union
+function printId2(id: number | string): void {
+  console.log(id.toString());
+}

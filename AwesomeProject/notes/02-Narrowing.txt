@@ -1,0 +1,47 @@
+// Permet à ts d'éliliminer des types de données possibles poue une variable ...
+
+function printId(id: number | string) {
+  if (typeof id === 'number') {
+    console.log((id * 3).toString())
+  } else {
+    console.log(id.toUpperCase())
+  }
+}
+
+function example(a: string | boolean | Date, b: number | string | string[]) {
+  if (a === b) {
+    // Ici il détectera que a est de type string car c'est la seule type possible commun entre eux
+    console.log(typeof a);
+  }
+  
+  if (a instanceof Date) {
+    // Ici il détectera que a est de type Date
+    console.log(a.toLocaleDateString());
+  }
+
+  if (Array.isArray(b)) {
+    // Ici il détectera que b est de type string[]
+    console.log(b.join(', '));
+  }
+}
+
+function isDate(a: any): a is Date {
+  return a instanceof Date;
+}
+
+function example2(a: MouseEvent | HTMLInputElement | Date) {
+  if ("value" in a) {
+    // Ici il détectera que a est de type HTMLInputElement
+    console.log(a.value);
+  }
+
+  if (isDate(a)) {
+    // Ici il détectera que a est de type Date
+    console.log(a.toLocaleDateString());
+  }
+}
+
+// Forcer le narrowing pour dire par exemple qu'une variable ne peut pâs être null...
+const compteur2 = document.querySelector("#compteur")!;
+// La faut faire gaffe car si le querySelector ne trouve rien, ça va planter, faut être sûr que ça existe
+const compteur3 = document.querySelector("#compteur") as HTMLButtonElement;

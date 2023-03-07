@@ -1,0 +1,54 @@
+// Les alias de types ...
+
+type User = { firstname: string; lastname: string };
+type DateString = string;
+type Id = number | string;
+
+const user: User = { firstname: "John", lastname: "Doe" };
+
+//  Les génériques ...
+function identity<ArgType>(arg: ArgType): ArgType {
+  return arg;
+}
+
+const exemple = identity<number>(5);
+
+function first<Type>(arg: Type[]): Type {
+  return arg[0];
+}
+
+const exemple2 = first(["aze", "fgh", "tgf"]);
+
+const exemple3 = first(["aze", true, 3]);
+
+const exemple4 = document.querySelector<HTMLButtonElement>("#compteur");
+
+const exemple5 = ["aze", "arf", 5];
+
+const exemple6: Array<string | number> = ["aze", "arf", 5];
+
+type Identity<ArgType> = (arg: ArgType) => ArgType;
+
+// Type générique avec contrainte ...
+
+function consoleSize<Type extends { length: number }>(arg: Type): Type{
+  console.log(arg.length);
+  return arg;
+}
+
+const exemple7 = consoleSize(3); // Erreur number ne possède pas de propriété length ...
+const exemple8 = consoleSize(["aer", "erg", "uji"]); // Array possède une propriété length donc ça passe ...
+
+// Type déndant d'un autre ...
+const portable = {
+  nom: "Tecno Pop3",
+  couleur: "Noir",
+  garantie: 3
+}
+type Portable = typeof portable;
+
+// Type héritant d'autres ...
+type Username = User["firstname"];
+
+// Type détècté auto ...
+const input = document.querySelector("input");
